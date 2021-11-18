@@ -39,7 +39,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <WrapPanel Background="DarkGray" Grid.Row="0">
-            <Button Content="Capture image" Margin="10" Command="{Binding CaptureImageCommand}" IsEnabled="{Binding CaptureImageButtonEnabled}"></Button>
+            <Button Content="&#128247; Capture image" Margin="10" Command="{Binding CaptureImageCommand}" ></Button>
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -53,13 +53,25 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Content="Framerate" Grid.Column="0" VerticalAlignment="Center"></Label>
-                <ewt:IntegerUpDown Width="50" Value="{Binding Framerate}" Grid.Column="1"></ewt:IntegerUpDown>
+                <Label Content="Preferred Framerate" Grid.Column="0" VerticalAlignment="Center"></Label>
+                <ewt:IntegerUpDown Width="50" Value="{Binding PreferredFramerate}" Grid.Column="1"></ewt:IntegerUpDown>
             </Grid>
-            <CheckBox Content="Testmode" IsChecked="{Binding IsTestMode}"></CheckBox>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Content="Current Framerate" Grid.Column="0" VerticalAlignment="Center"></Label>
+                <Label Foreground="Red" Content="{Binding CurrentFramerate}" VerticalAlignment="Center" Grid.Column="1"></Label>
+            </Grid>
         </WrapPanel>
         <Grid Grid.Row="1" Background="Black">
-            <Image Source="{Binding ImageSource}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Margin="10" Grid.Column="0" Source="{Binding ImageSource}"/>
+            <ListView ItemsSource="{Binding CapturedImages}"/>
         </Grid>
     </Grid>
 </Window>

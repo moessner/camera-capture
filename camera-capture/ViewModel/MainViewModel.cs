@@ -14,6 +14,7 @@ using Emgu.CV;
 using Emgu.CV.Structure;
 using System.Drawing;
 using Extensions;
+using static Emgu.CV.VideoCapture;
 
 namespace view_models
 {
@@ -22,22 +23,19 @@ namespace view_models
         private ICommand _captureImageCommand;
         private ICommand _windowClosingCommand;
         private bool _showLivestream;
-        private int _framerate = 60;
-        private Timer livestreamTimer;
+        private int _preferredFramerate = 60;
+        private VideoCapture capture;
 
         public MainViewModel()
         {
-            livestreamTimer = new Timer();
-            livestreamTimer.Elapsed += new ElapsedEventHandler((object sender, ElapsedEventArgs e) => {
-                this.ImageSource.Dispatcher.Invoke(() => CaptureImage());
-            });
-
-            livestreamTimer.Interval = Framerate;
+            capture = new VideoCapture();
+            capture.ImageGrabbed += Capture_ImageGrabbed;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public ImageSource ImageSource { get; set; } = new BitmapImage();
-        public bool IsTestMode { get; set; }
+
+        public string Device { get; set; }
 
         public ICommand CaptureImageCommand
         {
@@ -76,24 +74,22 @@ namespace view_models
         }
 
         public bool CaptureImageButtonEnabled { get; set; } = true;
+        public int CurrentFramerate { get; set; }
 
-        public int Framerate
+        public int PreferredFramerate
         {
-            get { return _framerate; }
+            get { return _preferredFramerate; }
             set
             {
-                _framerate = value;
-                livestreamTimer.Interval = 1000 / _framerate;
+
+                capture.Set(Emgu.CV.CvEnum.CapProp.Fps, value);
+                CurrentFramerate = (int) capture.Get(Emgu.CV.CvEnum.CapProp.Fps);
+                _preferredFramerate = value;
             }
         }
 
         private void CaptureImage()
         {
-            if (IsTestMode)
-                ImageSource = GenerateTestImage();
-            else
-            {
-                VideoCapture capture = new VideoCapture();
                 Mat frame = capture.QueryFrame();
 
                 if (frame == null)
@@ -101,33 +97,22 @@ namespace view_models
 
                 Bitmap bmp = frame.ToBitmap();
                 ImageSource = bmp.ToBitmapSource();
-            }
+        }
+
+        private void Capture_ImageGrabbed(object? sender, EventArgs e)
+        {
+            Mat frame = new Mat();
+
+            if (!capture.Retrieve(frame))
+                return;
+
+            Bitmap bmp = frame.ToBitmap();
+            ImageSource.Dispatcher.Invoke(() => ImageSource = bmp.ToBitmapSource());
         }
 
         private void WindowClosing()
         {
-            livestreamTimer.Stop();
-        }
-
-
-        // https://stackoverflow.com/a/21891278
-        private DrawingImage GenerateTestImage()
-        {
-            var random = new Random();
-            var pixels = new byte[256 * 256 * 4];
-            random.NextBytes(pixels);
-
-            BitmapSource source = BitmapSource.Create(256, 256, 96, 96, PixelFormats.Pbgra32, null, pixels, 256 * 4);
-            var visual = new DrawingVisual();
-
-            using (DrawingContext drawingContext = visual.RenderOpen())
-            {
-                drawingContext.DrawImage(source, new Rect(0, 0, 256, 256));
-            }
-
-            DrawingImage image = new DrawingImage(visual.Drawing);
-
-            return image;
+            capture.Stop();
         }
 
         private void ToggleLivestream(bool showLivestream)
@@ -135,11 +120,13 @@ namespace view_models
             CaptureImageButtonEnabled = !showLivestream;
 
             if (showLivestream)
-                livestreamTimer.Start();
+            {
+                capture.Start();
+                CurrentFramerate = (int)capture.Get(Emgu.CV.CvEnum.CapProp.Fps);
+            }
             else
             {
-                livestreamTimer.Stop();
-                ImageSource = new BitmapImage();
+                capture.Stop();
             }
         }
     }
