@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>camera-capture</id>
+    <version>1.0.0</version>
+    <authors>camera-capture</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net6.0-windows7.0">
+        <dependency id="Emgu.CV" version="4.5.4.4788" exclude="Build,Analyzers" />
+        <dependency id="Emgu.CV.Bitmap" version="4.5.4.4788" exclude="Build,Analyzers" />
+        <dependency id="Emgu.CV.runtime.windows" version="4.5.4.4788" exclude="Build,Analyzers" />
+        <dependency id="Extended.Wpf.Toolkit" version="4.1.0" exclude="Build,Analyzers" />
+        <dependency id="MaterialDesignThemes" version="4.2.1" exclude="Build,Analyzers" />
+        <dependency id="MvvmLight" version="5.4.1.1" exclude="Build,Analyzers" />
+        <dependency id="MvvmLightLibs" version="5.4.1.1" exclude="Build,Analyzers" />
+        <dependency id="PropertyChanged.Fody" version="3.4.0" exclude="Build,Analyzers" />
+        <dependency id="System.Drawing.Common" version="6.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net6.0-windows7.0">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="C:\Programmentwicklung\camera-capture\camera-capture\bin\x64\Debug\net6.0-windows\camera-capture.runtimeconfig.json" target="lib\net6.0-windows7.0\camera-capture.runtimeconfig.json" />
+    <file src="C:\Programmentwicklung\camera-capture\camera-capture\bin\x64\Debug\net6.0-windows\camera-capture.dll" target="lib\net6.0-windows7.0\camera-capture.dll" />
+  </files>
+</package>

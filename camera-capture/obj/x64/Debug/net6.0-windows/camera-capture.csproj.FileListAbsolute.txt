@@ -66,3 +66,7 @@ C:\Programmentwicklung\camera-capture\camera-capture\bin\x64\Debug\net6.0-window
 C:\Programmentwicklung\camera-capture\camera-capture\bin\x64\Debug\net6.0-windows\runtimes\win-x86\native\msvcp140_atomic_wait.dll
 C:\Programmentwicklung\camera-capture\camera-capture\bin\x64\Debug\net6.0-windows\runtimes\win-x86\native\msvcp140_codecvt_ids.dll
 C:\Programmentwicklung\camera-capture\camera-capture\bin\x64\Debug\net6.0-windows\runtimes\win-x86\native\vcruntime140.dll
+C:\Programmentwicklung\camera-capture\camera-capture\bin\x64\Debug\net6.0-windows\pretrained_models\haarcascade_smile.xml
+C:\Programmentwicklung\camera-capture\camera-capture\obj\x64\Debug\net6.0-windows\camera-capture_Content.g.cs
+C:\Programmentwicklung\camera-capture\camera-capture\bin\x64\Debug\net6.0-windows\pretrained_models\haarcascade_frontalface_alt2.xml
+C:\Programmentwicklung\camera-capture\camera-capture\bin\x64\Debug\net6.0-windows\pretrained_models\haarcascade_eye_tree_eyeglasses.xml

@@ -170,7 +170,7 @@ namespace view_models
             if (!capture.Retrieve(frame))
                 return;
 
-            Bitmap bmp = frame.ToBitmap();
+            Bitmap bmp = DetectFaces(frame);
             ImageSource.Dispatcher.Invoke(() => ImageSource = bmp.ToBitmapSource());
         }
 
@@ -216,6 +216,24 @@ namespace view_models
             BitmapSource source = (BitmapSource)SelectedImage.Source;
             Bitmap bitmap = source.ConvertToBitmap();
             Clipboard.SetDataObject(bitmap);
+        }
+
+        private Bitmap DetectFaces(Mat mat)
+        {
+            CascadeClassifier cascadeClassifier = new CascadeClassifier(Path.GetFullPath("./pretrained_models/haarcascade_frontalface_alt2.xml"));
+            Rectangle[] rectFaces = cascadeClassifier.DetectMultiScale(mat);
+
+            Bitmap bitmap = mat.ToBitmap();
+
+            foreach (Rectangle rect in rectFaces)
+            {
+                using (Graphics g = Graphics.FromImage(bitmap))
+                {
+                    g.DrawRectangle(Pens.Red, rect.X, rect.Y, rect.Width, rect.Height);
+                }
+            }
+           
+            return bitmap;
         }
 
         private void DiscardSelectedImage()
