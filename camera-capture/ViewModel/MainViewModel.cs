@@ -16,6 +16,9 @@ using System.Drawing;
 using Extensions;
 using static Emgu.CV.VideoCapture;
 using System.Collections.ObjectModel;
+using Microsoft.Win32;
+using System.Threading;
+using System.IO;
 
 namespace view_models
 {
@@ -23,6 +26,9 @@ namespace view_models
     {
         private ICommand _captureImageCommand;
         private ICommand _windowClosingCommand;
+        private ICommand _copyImageCommand;
+        private ICommand _saveImageCommand;
+        private ICommand _discardImageCommand;
         private bool _showLivestream;
         private int _preferredFramerate = 60;
         private VideoCapture capture;
@@ -31,6 +37,8 @@ namespace view_models
         {
             capture = new VideoCapture();
             capture.ImageGrabbed += Capture_ImageGrabbed;
+
+            ShowLivestream = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -48,6 +56,44 @@ namespace view_models
                 }
 
                 return _captureImageCommand;
+            }
+        }
+        public ICommand CopyImageCommand
+        {
+            get
+            {
+                if (_copyImageCommand == null)
+                {
+                    _copyImageCommand = new RelayCommand(() => CopySelectedImage());
+                }
+
+                return _copyImageCommand;
+            }
+        }
+
+        public ICommand SaveImageCommand
+        {
+            get
+            {
+                if (_saveImageCommand == null)
+                {
+                    _saveImageCommand = new RelayCommand(() => SaveSelectedImage());
+                }
+
+                return _saveImageCommand;
+            }
+        }
+        
+        public ICommand DiscardImageCommand
+        {
+            get
+            {
+                if (_discardImageCommand == null)
+                {
+                    _discardImageCommand = new RelayCommand(() => DiscardSelectedImage());
+                }
+
+                return _discardImageCommand;
             }
         }
 
@@ -84,7 +130,7 @@ namespace view_models
             set 
             { 
                 _selectedImage = value;
-                ImageSource = value.Source;
+                ImageSource = value != null ? value.Source : new BitmapImage();
             }
         }
 
@@ -146,6 +192,35 @@ namespace view_models
             {
                 capture.Stop();
             }
+        }
+
+        private void SaveSelectedImage()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            BitmapSource source = (BitmapSource)SelectedImage.Source;
+
+            if (!(bool)sfd.ShowDialog())
+                return;
+
+            using (var fileStream = new FileStream(sfd.FileName, FileMode.Create))
+            {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(source));
+                encoder.Save(fileStream);
+            }
+        }
+
+        private void CopySelectedImage()
+        {
+            BitmapSource source = (BitmapSource)SelectedImage.Source;
+            Bitmap bitmap = source.ConvertToBitmap();
+            Clipboard.SetDataObject(bitmap);
+        }
+
+        private void DiscardSelectedImage()
+        {
+            CapturedImages.Remove(SelectedImage);
         }
     }
 }
