@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "camera-capture", "camera-capture\camera-capture.csproj", "{19675316-8F25-4676-A0B2-84B28405E1E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19675316-8F25-4676-A0B2-84B28405E1E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19675316-8F25-4676-A0B2-84B28405E1E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19675316-8F25-4676-A0B2-84B28405E1E7}.Debug|x64.ActiveCfg = Debug|x64
+		{19675316-8F25-4676-A0B2-84B28405E1E7}.Debug|x64.Build.0 = Debug|x64
+		{19675316-8F25-4676-A0B2-84B28405E1E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19675316-8F25-4676-A0B2-84B28405E1E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19675316-8F25-4676-A0B2-84B28405E1E7}.Release|x64.ActiveCfg = Release|x64
+		{19675316-8F25-4676-A0B2-84B28405E1E7}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E0FFE741-E3BE-417E-8EBB-066350ADB67B}
+	EndGlobalSection
+EndGlobal

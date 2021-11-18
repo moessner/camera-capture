@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "19675316-8f25-4676-a0b2-84b28405e1e7": {
+      "ProjectGuid": "19675316-8f25-4676-a0b2-84b28405e1e7",
+      "DisplayName": "camera-capture",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

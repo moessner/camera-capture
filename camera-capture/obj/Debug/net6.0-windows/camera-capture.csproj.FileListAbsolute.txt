@@ -1,0 +1,6 @@
+C:\Programmentwicklung\camera-capture\camera-capture\obj\Debug\net6.0-windows\camera-capture.csproj.AssemblyReference.cache
+C:\Programmentwicklung\camera-capture\camera-capture\obj\Debug\net6.0-windows\MainWindow.g.cs
+C:\Programmentwicklung\camera-capture\camera-capture\obj\Debug\net6.0-windows\App.g.cs
+C:\Programmentwicklung\camera-capture\camera-capture\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Programmentwicklung\camera-capture\camera-capture\obj\Debug\net6.0-windows\camera-capture_MarkupCompile.cache
+C:\Programmentwicklung\camera-capture\camera-capture\obj\Debug\net6.0-windows\camera-capture_MarkupCompile.lref

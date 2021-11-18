@@ -1,0 +1,65 @@
+﻿<Window x:Class="camera_capture.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:view_models"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        xmlns:ewt="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:command="http://www.galasoft.ch/mvvmlight"
+        Title="Camera Capture V1.0" Height="450" Width="800"
+        Icon="icon.ico"
+        >
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <command:EventToCommand Command="{Binding WindowClosingCommand}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
+    <Window.DataContext>
+        <viewmodels:MainViewModel></viewmodels:MainViewModel>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel Background="DarkGray" Grid.Row="0">
+            <Button Content="Capture image" Margin="10" Command="{Binding CaptureImageCommand}" IsEnabled="{Binding CaptureImageButtonEnabled}"></Button>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Content="Livestream" Grid.Column="0" VerticalAlignment="Center"></Label>
+                <ToggleButton Grid.Column="1" Command="{Binding }" IsChecked="{Binding ShowLivestream}"></ToggleButton>
+            </Grid>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Content="Framerate" Grid.Column="0" VerticalAlignment="Center"></Label>
+                <ewt:IntegerUpDown Width="50" Value="{Binding Framerate}" Grid.Column="1"></ewt:IntegerUpDown>
+            </Grid>
+            <CheckBox Content="Testmode" IsChecked="{Binding IsTestMode}"></CheckBox>
+        </WrapPanel>
+        <Grid Grid.Row="1" Background="Black">
+            <Image Source="{Binding ImageSource}"/>
+        </Grid>
+    </Grid>
+</Window>
