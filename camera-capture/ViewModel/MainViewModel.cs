@@ -15,6 +15,7 @@ using Emgu.CV.Structure;
 using System.Drawing;
 using Extensions;
 using static Emgu.CV.VideoCapture;
+using System.Collections.ObjectModel;
 
 namespace view_models
 {
@@ -35,7 +36,7 @@ namespace view_models
         public event PropertyChangedEventHandler PropertyChanged;
         public ImageSource ImageSource { get; set; } = new BitmapImage();
 
-        public string Device { get; set; }
+        public ObservableCollection<System.Windows.Controls.Image> CapturedImages { get; set; } = new ObservableCollection<System.Windows.Controls.Image>();
 
         public ICommand CaptureImageCommand
         {
@@ -75,6 +76,18 @@ namespace view_models
 
         public bool CaptureImageButtonEnabled { get; set; } = true;
         public int CurrentFramerate { get; set; }
+        private System.Windows.Controls.Image _selectedImage;
+
+        public System.Windows.Controls.Image SelectedImage
+        {
+            get { return _selectedImage; }
+            set 
+            { 
+                _selectedImage = value;
+                ImageSource = value.Source;
+            }
+        }
+
 
         public int PreferredFramerate
         {
@@ -90,13 +103,18 @@ namespace view_models
 
         private void CaptureImage()
         {
-                Mat frame = capture.QueryFrame();
+            Mat frame = capture.QueryFrame();
 
-                if (frame == null)
-                    return;
+            if (frame == null)
+                return;
 
-                Bitmap bmp = frame.ToBitmap();
-                ImageSource = bmp.ToBitmapSource();
+            Bitmap bmp = frame.ToBitmap();
+            BitmapSource source = bmp.ToBitmapSource();
+            ImageSource = source;
+
+            System.Windows.Controls.Image image = new System.Windows.Controls.Image();
+            image.Source = source;
+            CapturedImages.Add(image);
         }
 
         private void Capture_ImageGrabbed(object? sender, EventArgs e)

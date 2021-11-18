@@ -46,7 +46,7 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Label Content="Livestream" Grid.Column="0" VerticalAlignment="Center"></Label>
-                <ToggleButton Grid.Column="1" Command="{Binding }" IsChecked="{Binding ShowLivestream}"></ToggleButton>
+                <ToggleButton Grid.Column="1" IsChecked="{Binding ShowLivestream}"></ToggleButton>
             </Grid>
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
@@ -65,13 +65,14 @@
                 <Label Foreground="Red" Content="{Binding CurrentFramerate}" VerticalAlignment="Center" Grid.Column="1"></Label>
             </Grid>
         </WrapPanel>
-        <Grid Grid.Row="1" Background="Black">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="90*"></ColumnDefinition>
+                <ColumnDefinition Width="10*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Image Margin="10" Grid.Column="0" Source="{Binding ImageSource}"/>
-            <ListView ItemsSource="{Binding CapturedImages}"/>
+            <ListView Background="Gray" Margin="10" Grid.Column="1" ItemsSource="{Binding CapturedImages}" SelectedItem="{Binding SelectedImage}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            </ListView>
         </Grid>
     </Grid>
 </Window>
